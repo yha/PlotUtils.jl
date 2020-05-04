@@ -41,7 +41,7 @@ end
 
 Base.size(t::Ticks) = size(t.u)
 Base.step(t::Ticks{T}) where T = t.step * oneunit(T)
-Base.getindex(t::Ticks{T}, i::Integer) where T = round(t.u[i]*t.step; digits=max(-t.z,0)) * oneunit(T)
+Base.getindex(t::Ticks{T}, i::Integer) where T = round(t.u[i]*t.step; digits=-t.z) * oneunit(T)
 _ticks_str(t::Ticks) = "($(t.q*t.u))*10^$(t.z)"
 Base.show(io::IO, t::Ticks{<:AbstractFloat}) = print(io, _ticks_str(t))
 Base.show(io::IO, t::Ticks{T}) where T = print(io, _ticks_str(t), " * ", oneunit(T))
